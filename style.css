@@ -1,0 +1,12 @@
+body{
+  margin: 0;
+  padding: 0;
+  margin: 0 auto;
+}
+
+.main{
+  min-width: 320px;
+  max-width: 640px;
+  min-height: 100vh;
+  background: linear-gradient(45deg,#E91E63,#F44336);
+}
