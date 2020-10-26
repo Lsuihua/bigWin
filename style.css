@@ -8,5 +8,5 @@ body{
   min-width: 320px;
   max-width: 640px;
   min-height: 100vh;
-  background: linear-gradient(45deg,#E91E63,#F44336);
+  background: radial-gradient(#f3eaaa, #9b591f);
 }

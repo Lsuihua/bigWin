@@ -26,10 +26,99 @@ BigWin.prototype.draw = function(){
   // 坐标系平移到画布中心（0，0）;
   this.ctx.translate(this.canvas.width/2,this.canvas.height/2);
   var gtColor = this.ctx.createLinearGradient(-100,-100,-100,100);
-  gtColor.addColorStop(0,'#c18037');
-  gtColor.addColorStop(.2,'#e3c886');
-  gtColor.addColorStop(.6,'#cf953e');
-  gtColor.addColorStop(1,'#c2833e');
+  gtColor.addColorStop(0,'#c18339');   //主体中间光线渐变色
+  gtColor.addColorStop(.1,'#d5ab66');
+  gtColor.addColorStop(.25,'#f2e9a9');
+  gtColor.addColorStop(.35,'#f3ebab');
+  gtColor.addColorStop(.5,'#c69352');
+  gtColor.addColorStop(.6,'#b77836');
+  gtColor.addColorStop(.9,'#c3863f');
+  gtColor.addColorStop(1,'#d1a25e');
+
+  var gtColor1 = this.ctx.createLinearGradient(-100,-100,-100,100);
+  gtColor1.addColorStop(0,'#be9350');   //  主体两边渐变色
+  gtColor1.addColorStop(.1,'#c49c59');
+  gtColor1.addColorStop(.3,'#cdac64');
+  gtColor1.addColorStop(.5,'#b98947');
+  gtColor1.addColorStop(.6,'#a76c2e');
+  gtColor1.addColorStop(1,'#924a14');
+
+  // 两边
+  var _bgs1 = this.ctx.createLinearGradient(-100,-100,-100,100);
+  _bgs1.addColorStop(0,'#772302');
+  _bgs1.addColorStop(.1,'#9a5b29');
+  _bgs1.addColorStop(.3,'#cca15b');
+  _bgs1.addColorStop(.5,'#b47c3e');
+  _bgs1.addColorStop(1,'#a05518');
+  var _bgs2 = this.ctx.createLinearGradient(-100,-100,-100,100);
+  _bgs2.addColorStop(0,'#5b1502');
+  _bgs2.addColorStop(.1,'#69290a');
+  _bgs2.addColorStop(.3,'#99622f');
+  _bgs2.addColorStop(.5,'#884a1e');
+  _bgs2.addColorStop(1,'#7b3309');
+
+  var lineColor = this.ctx.createLinearGradient(-100,-100,-100,100);
+  lineColor.addColorStop(0,'#ad651d');   // 两边线条渐变色
+  lineColor.addColorStop(.3,'#cea757');
+  lineColor.addColorStop(.4,'#d6b567');
+  lineColor.addColorStop(.5,'#984f14');
+  lineColor.addColorStop(.9,'#a7621f');
+  lineColor.addColorStop(1,'#b47830');
+
+  var lineColor2 = this.ctx.createLinearGradient(-100,-100,-100,100);
+  lineColor2.addColorStop(0,'#9d6d39');   // 两边线条渐变色
+  lineColor2.addColorStop(.1,'#9e703c');
+  lineColor2.addColorStop(.4,'#d6b567');
+  lineColor2.addColorStop(.6,'#88491a');
+  lineColor2.addColorStop(1,'#7e360c');
+
+  //中间数字部分 渐变色
+  var bg1 = this.ctx.createLinearGradient(-36,-36,-36,36);
+  bg1.addColorStop(0,'#f5e39f');
+  bg1.addColorStop(1,'#ae6829');
+
+  var bg2 = this.ctx.createLinearGradient(-36,-36,-36,36);
+  bg2.addColorStop(0,'#98673e');
+  bg2.addColorStop(1,'#d5c98f');
+
+  var bg3 = this.ctx.createLinearGradient(-36,-36,-36,36);
+  bg3.addColorStop(0,'#120501');
+  bg3.addColorStop(.1,'#323132');
+  bg3.addColorStop(.2,'#656465');
+  bg3.addColorStop(.3,'#f1f1f1');
+  bg3.addColorStop(.5,'#8a8a8a');
+  bg3.addColorStop(.6,'#f1f1f1');
+  bg3.addColorStop(.8,'#656465');
+  bg3.addColorStop(.9,'#323132');
+  bg3.addColorStop(1,'#120501');
+
+  // 数字底层背景渐变色
+  var _bg2 = this.ctx.createLinearGradient(-70,-22,-70,22);
+  _bg2.addColorStop(0,'#98673e');
+  _bg2.addColorStop(1,'#d5c98f');
+
+  var _bg3 = this.ctx.createLinearGradient(-68,-20,-68,20);
+  _bg3.addColorStop(0,'#120501');
+  _bg3.addColorStop(.1,'#323132');
+  _bg3.addColorStop(.3,'#f1f1f1');
+  _bg3.addColorStop(.5,'#929292');
+  _bg3.addColorStop(.7,'#f1f1f1');
+  _bg3.addColorStop(.9,'#6c6b6c');
+  _bg3.addColorStop(1,'#120501');
+
+  var _bg4 = this.ctx.createLinearGradient(-65,50,-65,90);
+  _bg4.addColorStop(0,'#3c0f03');
+  _bg4.addColorStop(1,'#731f05');
+
+  // 头部标题背景渐变色
+  var rectBg1 = this.ctx.createLinearGradient(-80,-40,-80,40);
+  rectBg1.addColorStop(0,'#662307');
+  rectBg1.addColorStop(1,'#e8cf8e');
+
+  var rectBg2 = this.ctx.createLinearGradient(-80,-40,-80,40);
+  rectBg2.addColorStop(0,'#434444');
+  rectBg2.addColorStop(.5,'#262627');
+  rectBg2.addColorStop(1,'#404040');
 
   // 中间块
   this.ctx.save();
@@ -59,9 +148,6 @@ BigWin.prototype.draw = function(){
   this.ctx.arcTo(-90,40,-90,30,10);
   this.ctx.arcTo(-90,-40,-80,-40,10);
   this.ctx.closePath();
-  var rectBg1 = this.ctx.createLinearGradient(-80,-40,-80,40);
-  rectBg1.addColorStop(0,'#662307');
-  rectBg1.addColorStop(1,'#e8cf8e');
   this.ctx.fillStyle = rectBg1;
   this.ctx.fill();
 
@@ -72,46 +158,9 @@ BigWin.prototype.draw = function(){
   this.ctx.arcTo(-86,36,-86,26,10);
   this.ctx.arcTo(-86,-36,-76,-36,10);
   this.ctx.closePath();
-  var rectBg2 = this.ctx.createLinearGradient(-80,-40,-80,40);
-  rectBg2.addColorStop(0,'#434444');
-  rectBg2.addColorStop(.5,'#262627');
-  rectBg2.addColorStop(1,'#404040');
   this.ctx.fillStyle = rectBg2;
   this.ctx.fill();
   this.ctx.restore();
-
-  var bg1 = this.ctx.createLinearGradient(-36,-36,-36,36);
-  bg1.addColorStop(0,'#f5e39f');
-  bg1.addColorStop(1,'#ae6829');
-  var bg2 = this.ctx.createLinearGradient(-36,-36,-36,36);
-  bg2.addColorStop(0,'#98673e');
-  bg2.addColorStop(1,'#d5c98f');
-  var bg3 = this.ctx.createLinearGradient(-36,-36,-36,36);
-  bg3.addColorStop(0,'#120501');
-  bg3.addColorStop(.1,'#323132');
-  bg3.addColorStop(.2,'#656465');
-  bg3.addColorStop(.3,'#f1f1f1');
-  bg3.addColorStop(.5,'#8a8a8a');
-  bg3.addColorStop(.6,'#f1f1f1');
-  bg3.addColorStop(.8,'#656465');
-  bg3.addColorStop(.9,'#323132');
-  bg3.addColorStop(1,'#120501');
-
-  var _bg2 = this.ctx.createLinearGradient(-70,-22,-70,22);
-  _bg2.addColorStop(0,'#98673e');
-  _bg2.addColorStop(1,'#d5c98f');
-
-  var _bg3 = this.ctx.createLinearGradient(-68,-20,-68,20);
-  _bg3.addColorStop(0,'#120501');
-  _bg3.addColorStop(.1,'#323132');
-  _bg3.addColorStop(.3,'#f1f1f1');
-  _bg3.addColorStop(.5,'#929292');
-  _bg3.addColorStop(.7,'#f1f1f1');
-  _bg3.addColorStop(.9,'#6c6b6c');
-  _bg3.addColorStop(1,'#120501');
-  var _bg4 = this.ctx.createLinearGradient(-65,50,-65,90);
-  _bg4.addColorStop(0,'#3c0f03');
-  _bg4.addColorStop(1,'#731f05');
 
   var self = this;
   drawWinParams(1);
@@ -202,7 +251,6 @@ BigWin.prototype.draw = function(){
     self.ctx.restore();
   }
 
-
   // 底部
   self.ctx.save();
   self.ctx.beginPath();
@@ -273,34 +321,73 @@ BigWin.prototype.draw = function(){
     self.ctx.fillText(txt,0,-97);
     self.ctx.restore();
   }
-  
-  // 两边
-  var _bgs1 = self.ctx.createLinearGradient(-100,-100,-100,100);
-  _bgs1.addColorStop(0,'#772302');
-  _bgs1.addColorStop(.1,'#9a5b29');
-  _bgs1.addColorStop(.3,'#cca15b');
-  _bgs1.addColorStop(.5,'#b47c3e');
-  _bgs1.addColorStop(1,'#a05518');
-  var _bgs2 = self.ctx.createLinearGradient(-100,-100,-100,100);
-  _bgs2.addColorStop(0,'#5b1502');
-  _bgs2.addColorStop(.1,'#69290a');
-  _bgs2.addColorStop(.3,'#99622f');
-  _bgs2.addColorStop(.5,'#884a1e');
-  _bgs2.addColorStop(1,'#7b3309');
+
+  // 两边半圆
   drawSlide(-1);
-  drawSlide(1);
-  function drawSlide(duration){
-    var bd = 100;
+  drawSlide(1)
+  function drawSlide(direction){
     self.ctx.save();
+    
     self.ctx.beginPath();
-    self.ctx.fillStyle = _bgs1;
-    self.ctx.fillRect(duration*(bd+6),-bd+10,6,180);
+    self.ctx.moveTo(direction*100,-92);
+    self.ctx.lineTo(direction*100,92);
+    self.ctx.lineTo(direction*106,92);
+    self.ctx.lineTo(direction*106,-92);
+    self.ctx.lineTo(direction*100,-92);
     self.ctx.closePath();
+    self.ctx.fillStyle = _bgs1;
+    self.ctx.fill();
 
     self.ctx.beginPath();
-    self.ctx.fillStyle = _bgs2;
-    self.ctx.fillRect(duration*(bd+10),-bd+10,4,180);
+    self.ctx.moveTo(direction*106,-92);
+    self.ctx.lineTo(direction*106,92);
+    self.ctx.lineTo(direction*110,92);
+    self.ctx.lineTo(direction*110,-92);
+    self.ctx.lineTo(direction*106,-92);
     self.ctx.closePath();
+    self.ctx.fillStyle = _bgs2;
+    self.ctx.fill();
+
+    self.ctx.beginPath();
+    self.ctx.moveTo(direction*110,-100);
+    self.ctx.quadraticCurveTo(direction*140,-95,direction*160,-80);
+    self.ctx.lineTo(direction*160,80);
+    self.ctx.quadraticCurveTo(direction*140,95,direction*110,100);
+    self.ctx.lineTo(direction*110,-100);
+    self.ctx.closePath();
+    self.ctx.fillStyle = gtColor;
+    self.ctx.fill();
+    
+    self.ctx.beginPath();
+    self.ctx.moveTo(direction*160,-80);
+    self.ctx.quadraticCurveTo(direction*194,-58,direction*200,-5);
+    self.ctx.lineTo(direction*200,5);
+    self.ctx.quadraticCurveTo(direction*194,58,direction*160,80);
+    self.ctx.lineTo(direction*160,-80);
+    self.ctx.closePath();
+    self.ctx.fillStyle = gtColor1;
+    self.ctx.fill();
+    
+    // 质感线条
+    self.ctx.beginPath();
+    self.ctx.moveTo(direction*126,-96);
+    self.ctx.lineTo(direction*126,96);
+    self.ctx.quadraticCurveTo(direction*128,96,direction*130,94);
+    self.ctx.lineTo(direction*130,-94);
+    self.ctx.quadraticCurveTo(direction*128,-96,direction*126,-96);
+    self.ctx.closePath();
+    self.fillStyle = lineColor;
+    self.ctx.fill();
+
+    self.ctx.beginPath();
+    self.ctx.moveTo(direction*174,-69);
+    self.ctx.lineTo(direction*174,69);
+    self.ctx.quadraticCurveTo(direction*178,64,direction*180,60);
+    self.ctx.lineTo(direction*180,-60);
+    self.ctx.quadraticCurveTo(direction*178,-64,direction*174,-69);
+    self.ctx.fillStyle = lineColor2;
+    self.ctx.closePath();
+    self.ctx.fill();
     self.ctx.restore();
   }
 
