@@ -1,30 +1,56 @@
 var BigWin = window.BigWin = function(param){
-  this.canvas = document.getElementById(param.canvasId);
+  this.finalCanvas = document.getElementById(param.canvasId);
+  this.finalCtx = this.finalCanvas.getContext('2d');
+
+  // 虚拟canvas  解决动画效果闪屏问题 
+  this.canvas = document.createElement('canvas');
   this.ctx = this.canvas.getContext('2d');
 
+  this.timer = null;
+  this.animate = false;
   this.init();
   this.render();
 }
 
 BigWin.prototype.init = function(){
-  console.log(window)
   let _winW = window.outerWidth,
       _winH = window.outerHeight;
-  this.canvas.width = _winW;
-  this.canvas.height = _winH;
+  this.finalCanvas.width =  this.canvas.width = _winW;
+  this.finalCanvas.height = this.canvas.height = _winH;
+  
+  this.ctx.translate(this.canvas.width/2,this.canvas.height/2);
 }
 
 BigWin.prototype.start = function(){
-
+  this.animate = true;
+  this.animation();
 }
 
 BigWin.prototype.animation = function(){
+  // 动态更新数字
+  var n = Math.floor(Math.random() * 10);
+  // 将虚拟画布渲染到画布
+  this.finalCtx.clearRect(0,0,this.finalCanvas.width,this.finalCanvas.height);
+  this.finalCtx.drawImage(this.canvas,0,0);
 
+  this.ctx.clearRect(-this.canvas.width/2,-this.canvas.height/2,this.canvas.width/2,this.canvas.height/2);
+  this.draw([n,n,n]);
+  
+  this.timer = requestAnimationFrame(this.animation.bind(this));
 }
 
-BigWin.prototype.draw = function(){
+BigWin.prototype.stop = function(){
+  // 结束动画  显示结果
+  this.animate = false;
+  cancelAnimationFrame(this.timer);
+  this.timer = null;
+  this.ctx.clearRect(-this.canvas.width/2,-this.canvas.height/2,this.canvas.width/2,this.canvas.height/2);
+  this.draw([Math.floor(Math.random() * 10),Math.floor(Math.random() * 10),Math.floor(Math.random() * 10)]);
+}
+
+BigWin.prototype.draw = function(numbers){
+  // numbers 数字数组
   // 坐标系平移到画布中心（0，0）;
-  this.ctx.translate(this.canvas.width/2,this.canvas.height/2);
   var gtColor = this.ctx.createLinearGradient(-100,-100,-100,100);
   gtColor.addColorStop(0,'#c18339');   //主体中间光线渐变色
   gtColor.addColorStop(.1,'#d5ab66');
@@ -163,15 +189,15 @@ BigWin.prototype.draw = function(){
   this.ctx.restore();
 
   var self = this;
-  drawWinParams(1);
-  drawWinParams(2);
-  drawWinParams(3);
+
+  for(let i = 0; i< numbers.length;i++){
+    drawWinParams(numbers[i],i+1);
+  }
   
   // 三个牌牌
-  function drawWinParams(index){
+  function drawWinParams(n,index){
     // 宽:44(-76,76) | 高: 56(-28,28)  间距：10
     // 单个间距  （172 - 4*10）/3 = 44
-    var n = Math.floor(Math.random() * 10);
     drawTxt(n,index,44,-86,-36,86,36,10);
   }
 
@@ -395,5 +421,6 @@ BigWin.prototype.draw = function(){
 }
 
 BigWin.prototype.render = function(){
-  this.draw();
+  this.draw([0,0,0]);
+  this.finalCtx.drawImage(this.canvas,0,0);
 }
